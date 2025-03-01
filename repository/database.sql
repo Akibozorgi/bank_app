@@ -1,5 +1,7 @@
 create database mft_library;
 
+--
+
 create table mft_library.persons
 (
     p_id         int primary key auto_increment,
@@ -10,6 +12,7 @@ create table mft_library.persons
     password   varchar(20)
 );
 
+--
 
 create table mft_library.books
 (
@@ -20,6 +23,7 @@ create table mft_library.books
     pages     int
 );
 
+--
 
 create table mft_library.borrows
 (
