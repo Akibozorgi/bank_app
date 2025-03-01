@@ -1,3 +1,1 @@
-# heloo i am mehrab
-
-print(1)
+print("hello i am mehrab")
