@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.messagebox as msg
 
+from controller.person_controller import PersonController
 from validation.validator import person_validator
 from view.component.label_and_entry import LabelAndEntry
 from view.component.table import Table
@@ -11,24 +12,22 @@ from repository.person_repository import PersonRepository
 
 class PersonView:
     def save_click(self):
-        person = Person(
-            self.id.get(),
+        status, message = self.controller.save(
             self.name.get(),
             self.family.get(),
             self.birth_date.get(),
             self.username.get(),
             self.password.get(),
         )
-        errors = person_validator(person)
-        if errors:
-            msg.showerror("Error", errors)
+        if status:
+            msg.showinfo("Saved", message)
         else:
-            self.repository.save(person)
-            msg.showinfo("Saved", "Person saved")
+            msg.showerror("Error", message)
+
             self.reset_form()
 
     def edit_click(self):
-        person = Person(
+        status, message = self.controller.edit(
             self.id.get(),
             self.name.get(),
             self.family.get(),
@@ -36,17 +35,19 @@ class PersonView:
             self.username.get(),
             self.password.get()
         )
-        self.repository.edit(person)
-        errors = person_validator(person)
-        if errors:
-            msg.showerror("Error", errors)
+        if status:
+            msg.showinfo("Saved", message)
         else:
-            msg.showinfo("Edited", "Person edited")
+            msg.showerror("Error", message)
             self.reset_form()
 
     def remove_click(self):
-        self.repository.remove(self.id.get())
-        msg.showinfo("Removed", "Person removed")
+        status, message = self.controller.remove(self.id.get())
+
+        if status:
+            msg.showinfo("Saved", message)
+        else:
+            msg.showerror("Error", message)
         self.reset_form()
 
     def reset_form(self):
@@ -57,9 +58,10 @@ class PersonView:
         self.username.set("")
         self.password.set("")
         self.table.clear_table()
-        self.table.show_data(self.repository.find_all())
+        self.table.show_data(self.controller.find_all())
 
     def select_table(self, selected_row):
+        # todo : error
         person = Person(*selected_row)
         self.id.set(person.id)
         self.name.set(person.name)
@@ -69,30 +71,29 @@ class PersonView:
         self.password.set(person.password)
 
     def __init__(self):
-        self.repository = PersonRepository()
+        self.controller = PersonController()
 
         self.win = Tk()
         self.win.geometry("710x330")
         self.win.title("Person View")
 
+        self.id = LabelAndEntry(self.win, "Id", 20, 20, IntVar, 65, state="readonly")
+        self.name = LabelAndEntry(self.win, "Name", 20, 60, StringVar, 65)
+        self.family = LabelAndEntry(self.win, "Family", 20, 100, StringVar, 65)
+        self.birth_date = LabelAndEntry(self.win, "BirthDate", 20, 140, StringVar, 65)
+        self.username = LabelAndEntry(self.win, "Username", 20, 180, StringVar, 65)
+        self.password = LabelAndEntry(self.win, "Password", 20, 220, StringVar, 65, show="*")
 
-        self.id = LabelAndEntry(self.win,"Id",20,20,IntVar, 65, state="readonly" )
-        self.name = LabelAndEntry(self.win,"Name",20,60,StringVar,65 )
-        self.family = LabelAndEntry(self.win,"Family",20,100,StringVar,65 )
-        self.birth_date = LabelAndEntry(self.win,"BirthDate",20,140,StringVar,65 )
-        self.username = LabelAndEntry(self.win,"Username",20,180,StringVar,65 )
-        self.password = LabelAndEntry(self.win,"Password",20,220,StringVar,65 , show="*")
-
-        Button(self.win , text="Save",width=7, command=self.save_click).place(x=20, y =280)
-        Button(self.win , text="Edit",width=7, command=self.edit_click).place(x=85, y =280)
-        Button(self.win , text="Remove",width=7, command=self.remove_click).place(x=150, y =280)
+        Button(self.win, text="Save", width=7, command=self.save_click).place(x=20, y=280)
+        Button(self.win, text="Edit", width=7, command=self.edit_click).place(x=85, y=280)
+        Button(self.win, text="Remove", width=7, command=self.remove_click).place(x=150, y=280)
 
         self.table = Table(
             self.win,
             5,
-            ["Id","Name","Family","Birth Date","Username"],
-            [60,100,100,100,100],
-            230,20,
+            ["Id", "Name", "Family", "Birth Date", "Username"],
+            [60, 100, 100, 100, 100],
+            230, 20,
             13,
             self.select_table
         )

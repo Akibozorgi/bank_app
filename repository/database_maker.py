@@ -1,17 +1,18 @@
 import mysql.connector
 
-connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="root123"
-        )
-cursor = connection.cursor()
+def create_database():
+    connection = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root123"
+    )
+    cursor = connection.cursor()
 
-with open("database.sql") as f:
-    for sql_command in f.read().split("--"):
-        print(sql_command)
-        cursor.execute(sql_command)
+    with open("repository/database.sql") as f:
+        for sql_command in f.read().split("--"):
+            print(sql_command)
+            cursor.execute(sql_command)
 
-connection.commit()
-cursor.close()
-connection.close()
+    connection.commit()
+    cursor.close()
+    connection.close()

@@ -37,3 +37,8 @@ create table mft_library.borrows
     book_id int,
     foreign key (book_id) references mft_library.books(b_id)
 );
+
+CREATE VIEW BORROW_REPORT AS
+SELECT * FROM BORROWS
+JOIN PERSONS ON PERSONS.P_ID=BORROWS.PERSON_ID
+JOIN BOOKS ON BOOKS.B_ID = BORROWS.BOOK_ID;
