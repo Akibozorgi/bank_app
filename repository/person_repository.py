@@ -43,7 +43,7 @@ class PersonRepository:
     def find_all(self):
         self.connect()
         self.cursor.execute("SELECT * FROM PERSONS ORDER BY FAMILY, NAME")
-        person_list = self.cursor.fetchall()
+        person_list = list(map( lambda p:Person(p[0],p[1],p[2],str(p[3]),p[4],p[5],) , self.cursor.fetchall()))
         self.disconnect()
         return person_list
 

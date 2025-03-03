@@ -13,6 +13,6 @@ def create_database():
             print(sql_command)
             cursor.execute(sql_command)
 
-    connection.commit()
+        connection.commit()
     cursor.close()
     connection.close()
