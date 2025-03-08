@@ -14,7 +14,5 @@ def create_database():
                 print(sql_command)
                 cursor.execute(sql_command)
                 connection.commit()
-            except:
-                pass
-    cursor.close()
-    connection.close()
+            except Exception as e:
+                print("Error :",e)

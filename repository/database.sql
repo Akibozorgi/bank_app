@@ -7,7 +7,7 @@ create table bank_db.persons
     name       varchar(30),
     family     varchar(30),
     birth_date date,
-    user       varchar(20),
+    username       varchar(20),
     password   varchar(10)
 );
 

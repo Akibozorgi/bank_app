@@ -13,8 +13,8 @@ class Table:
             self.table.delete(item)
 
     def show_data(self, data_list):
-        for data in data_list:
-            self.table.insert("", END, values=data)
+        for data in data_list[1]:
+            self.table.insert("", END, values=tuple(data.__dict__.values()))
 
     def __init__(self, window, columns_count, headings, column_widths, x, y,height=10, function_name=None):
         self.function_name = function_name
