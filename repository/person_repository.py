@@ -8,7 +8,7 @@ class PersonRepository:
             host="localhost",
             user="root",
             passwd="root123",
-            database="mft_library"
+            database="bank_db"
         )
         self.cursor = self.connection.cursor()
 

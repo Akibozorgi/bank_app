@@ -1,44 +1,42 @@
-create database mft_library;
+create database bank_db;
 
---
+create table bank_db.persons
 
-create table mft_library.persons
 (
-    p_id         int primary key auto_increment,
+    p_id       int primary key auto_increment,
     name       varchar(30),
     family     varchar(30),
     birth_date date,
-    username   varchar(30),
-    password   varchar(20)
+    user       varchar(20),
+    password   varchar(10)
 );
 
---
-
-create table mft_library.books
+create table bank_db.cards
 (
-    b_id        int primary key auto_increment,
-    title     varchar(30),
-    writer    varchar(60),
-    publisher varchar(50),
-    pages     int
+    c_id        int primary key auto_increment,
+    bank_name   varchar(20),
+    card_number char(16),
+    expire_date int,
+    cvv2        char(4),
+    password    varchar(10),
+    amount      int,
+
+    person_id   int,
+    foreign key (person_id) references bank_db.persons(p_id)
 );
 
---
 
-create table mft_library.borrows
+create table bank_db.transactions
 (
-    id        int primary key auto_increment,
-    borrow_date date,
-    return_date date default null,
+    t_id        int primary key auto_increment,
 
-    person_id int,
-    foreign key (person_id) references mft_library.persons(p_id),
+    amount      int,
+    date_time   datetime,
 
-    book_id int,
-    foreign key (book_id) references mft_library.books(b_id)
+    sender_id   int,
+    foreign key (sender_id) references bank_db.cards (c_id),
+
+    receiver_id int,
+    foreign key (receiver_id) references bank_db.cards (c_id)
 );
 
-CREATE VIEW BORROW_REPORT AS
-SELECT * FROM BORROWS
-JOIN PERSONS ON PERSONS.P_ID=BORROWS.PERSON_ID
-JOIN BOOKS ON BOOKS.B_ID = BORROWS.BOOK_ID;

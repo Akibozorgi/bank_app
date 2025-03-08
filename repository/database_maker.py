@@ -10,9 +10,11 @@ def create_database():
 
     with open("repository/database.sql") as f:
         for sql_command in f.read().split("--"):
-            print(sql_command)
-            cursor.execute(sql_command)
-
-        connection.commit()
+            try:
+                print(sql_command)
+                cursor.execute(sql_command)
+                connection.commit()
+            except:
+                pass
     cursor.close()
     connection.close()
