@@ -2,7 +2,8 @@ from tkinter import *
 import tkinter.messagebox as msg
 
 from controller.person_controller import PersonController
-from validation.validator import person_validator
+
+from validation import person_validator
 from view.component.label_and_entry import LabelAndEntry
 from view.component.table import Table
 

@@ -1,5 +1,5 @@
 class Transaction:
-    def __init__(self,id, amount,date_time,sender,receiver):
+    def __init__(self,t_id, amount,date_time,sender,receiver):
         self.id = id
         self.amount = amount
         self.date_time = date_time

@@ -1,20 +1,20 @@
+import mysql.connector
+from model.transaction import Transaction
+from repository.transaction_repository import Transaction
 
-from model.person import Person
-from repository.person_repository import PersonRepository
 
-
-class PersonService:
+class TransactionService:
     def __init__(self):
-        self.repo = PersonRepository()
+        self.repo = TransactionService
 
-    def save(self, person):
-        self.repo.save(person)
+    def save(self, transaction):
+        self.repo.save(transaction)
 
-    def edit(self, person):
-        self.repo.edit(person)
+    def edit(self, transaction):
+        self.repo.edit(transaction)
 
-    def remove(self, person_id):
-        self.repo.remove(person_id)
+    def remove(self, tranceaction_id):
+        self.repo.remove(tranceaction_id)
 
     def find_all(self):
         return self.repo.find_all()

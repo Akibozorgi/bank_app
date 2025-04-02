@@ -21,3 +21,4 @@ def person_validator(person):
     # else:
     #     errors.append({"field": "birth_date", "message": "invalid birth_date"})
     return errors
+

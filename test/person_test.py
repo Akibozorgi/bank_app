@@ -3,7 +3,7 @@ from datetime import date
 from controller.person_controller import PersonController
 from model.person import Person
 from repository.person_repository import PersonRepository
-from validation.validator import person_validator
+from validation.person_validator import person_validator
 
 # id = int(input("Enter ID : "))
 # name = input("Enter Name : ")
