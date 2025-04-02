@@ -33,7 +33,7 @@ def card_validator(card):
     if not card.person:
         errors.append({"field": "person", "message": "Invalid person"})
 
-        # todo : has error
+
         # if not type(person.birth_date) == date or type(person.birth_date) == str:
         #     try:
         #         person.birth_date = datetime.strptime(person.birth_date, "%Y-%m-%d")
