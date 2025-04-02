@@ -1,6 +1,6 @@
 from model.person import Person
 from service.person_service import PersonService
-from validation.validator import person_validator
+from validation.person_validator import person_validator
 
 
 # decorator
